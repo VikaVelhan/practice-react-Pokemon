@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/practice-react-Pokemon/static/css/main.c9969133.css",
-    "main.js": "/practice-react-Pokemon/static/js/main.ec6441f0.js",
+    "main.js": "/practice-react-Pokemon/static/js/main.6456afbb.js",
     "index.html": "/practice-react-Pokemon/index.html",
     "main.c9969133.css.map": "/practice-react-Pokemon/static/css/main.c9969133.css.map",
-    "main.ec6441f0.js.map": "/practice-react-Pokemon/static/js/main.ec6441f0.js.map"
+    "main.6456afbb.js.map": "/practice-react-Pokemon/static/js/main.6456afbb.js.map"
   },
   "entrypoints": [
     "static/css/main.c9969133.css",
-    "static/js/main.ec6441f0.js"
+    "static/js/main.6456afbb.js"
   ]
 }
