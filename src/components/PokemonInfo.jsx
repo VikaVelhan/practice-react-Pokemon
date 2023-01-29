@@ -1,11 +1,13 @@
 import { Component } from 'react';
+import PokemonDataView from './PokemonDataView';
 //import { toast } from 'react-toastify';
 
 export default class PokemonInfo extends Component {
   state = {
     pokemon: null,
-    loading: false,
+
     error: null,
+    status: 'idle',
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -14,7 +16,7 @@ export default class PokemonInfo extends Component {
 
     if (prevName !== nextName) {
       console.log('Змінилось ім`я покемона');
-      this.setState({ loading: true, pokemon: null });
+      this.setState({ status: 'pending' });
       fetch(`https://pokeapi.co/api/v2/pokemon/${this.props.pokemonName}`)
         .then(res => {
           if (res.ok) {
@@ -22,16 +24,31 @@ export default class PokemonInfo extends Component {
           }
           return Promise.reject(new Error(`не існує покемона ${nextName}`));
         })
-        .then(pokemon => this.setState({ pokemon }))
-        .catch(error => this.setState({ error }))
-        .finally(() => this.setState({ loading: false }));
+        .then(pokemon => this.setState({ pokemon, status: 'resolved' }))
+        .catch(error => this.setState({ error, status: 'rejected' }));
     }
   }
 
   render() {
-    const { loading, pokemon, error } = this.state;
-    const { pokemonName } = this.props;
-    return (
+    const { pokemon, error, status } = this.state;
+    //const { pokemonName } = this.props;
+
+    if (status === 'idle') {
+      return <div>введіть ім`я покемона</div>;
+    }
+
+    if (status === 'pending') {
+      return <div>loading...</div>;
+    }
+
+    if (status === 'rejected') {
+      return <div>{error.message}</div>;
+    }
+
+    if (status === 'resolved') {
+      return <PokemonDataView pokemon={pokemon} />;
+    }
+    /*return (
       <div>
         {error && <div>{error.message}</div>}
         {loading && <div>loading...</div>}
@@ -47,6 +64,6 @@ export default class PokemonInfo extends Component {
           </div>
         )}
       </div>
-    );
+    );*/
   }
 }
